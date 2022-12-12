@@ -1,0 +1,11 @@
+library(readxl)
+data<- read_excel("C:/Users/tharu/Desktop/R Programming/pbldata.xlsx")
+plot(data$brbound,type = 'l', ylim = c(0,100))
+lines(data$greedy,type = 'l',col = "blue")
+lines(data$dynamic, type = 'l', col = "red")
+brgrreport<- t.test(data$brbound, data$greedy,mu=0, paired = TRUE)
+brgrreport
+grdynreport<- t.test(data$dynamic,data$greedy,mu=0, paired = TRUE)
+grdynreport
+dynbrreport<-t.test(data$dynamic, data$brbound, mu=0,paired = TRUE)
+dynbrreport
