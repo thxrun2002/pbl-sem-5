@@ -1,11 +1,58 @@
 library(readxl)
 data<- read_excel("C:/Users/tharu/Desktop/R Programming/pbldata.xlsx")
-plot(data$brbound,type = 'l', ylim = c(0,100))
+data
+
+plot(data$brbound,type = 'l', xlim = c(3,100),ylim = c(0,25), ylab = "Greedy vs BrBound")
 lines(data$greedy,type = 'l',col = "blue")
-lines(data$dynamic, type = 'l', col = "red")
-brgrreport<- t.test(data$brbound, data$greedy,mu=0, paired = TRUE)
+
+plot(data$brbound,type = 'l', xlim = c(3,100),ylim = c(0,100), ylab = "BrBound vs Dynamic")
+lines(data$dynamic,type = 'l',col = "blue")
+
+plot(data$dynamic,type = 'l', xlim = c(3,100),ylim = c(0,100), ylab = "Greedy vs Dynamic")
+lines(data$greedy,type = 'l',col = "blue")
+
+plot(data$dynamic,type = 'l', xlim = c(3,100),ylim = c(0,100), ylab = "All 3")
+lines(data$greedy,type = 'l',col = "blue")
+lines(data$brbound, type = 'l', col = "red")
+
+brgrreport<- t.test(data$brbound, data$greedy,mu=0, paired = FALSE)
 brgrreport
-grdynreport<- t.test(data$dynamic,data$greedy,mu=0, paired = TRUE)
+grdynreport<- t.test(data$dynamic,data$greedy,mu=0, paired = FALSE)
 grdynreport
-dynbrreport<-t.test(data$dynamic, data$brbound, mu=0,paired = TRUE)
+dynbrreport<-t.test(data$dynamic, data$brbound, mu=0,paired = FALSE)
 dynbrreport
+
+highlowdata<- read_excel("C:/Users/tharu/Desktop/R Programming/lowhighdata.xlsx")
+highlowdata
+greedyvalreport<- t.test(highlowdata$greedyhigh, highlowdata$greedylow, mu=0,paired = TRUE);
+greedyvalreport
+dynvalreport<- t.test(highlowdata$dynhigh, highlowdata$dynlow, mu=0,paired = TRUE);
+greedyvalreport
+brbvalreport<- t.test(highlowdata$brbhigh, highlowdata$brblow, mu=0,paired = TRUE);
+brbvalreport
+sizedata<- read_excel("C:/Users/tharu/Desktop/R Programming/size550pbl.xlsx")
+sizedata
+
+plot(sizedata$greedymin,type = 'l', ylim = c(0,20))
+lines(sizedata$greedymax,type = 'l',col = "red")
+plot(sizedata$dynmin,type = 'l', ylim = c(0,10))
+lines(sizedata$dynmax,type = 'l',col = "red")
+plot(sizedata$brbmin,type = 'l', ylim = c(0,10))
+lines(sizedata$brbmax,type = 'l',col = "red")
+
+
+plot(highlowdata$dynhigh,type = 'l', ylim = c(0,2))
+lines(highlowdata$dynlow,type = 'l',col = "blue")
+
+greedysizereport<- t.test(sizedata$greedymin,sizedata$greedymax,mu = 0, paired = TRUE)
+greedysizereport
+dynsizereport<- t.test(sizedata$dynmin,sizedata$dynmax,mu = 0, paired = TRUE)
+dynsizereport
+brbsizereport<- t.test(sizedata$brbmin,sizedata$brbmax,mu = 0, paired = TRUE)
+brbsizereport
+highlowreport<- t.test(highlowdata$greedyhigh, highlowdata$greedylow,mu= 0, paired = FALSE)
+highlowreport
+report<-t.test(highlowdata$brbhigh,highlowdata$brblow,mu=0,paired= FALSE)
+report
+nextreport<- t.test(highlowdata$dynhigh,highlowdata$dynlow,mu=0,paired = FALSE)
+nextreport
